@@ -1,6 +1,6 @@
 # Saga frontend
 
-This is the front end repo for the project ###Saga-arkivet
+This is the front end repo for the project Saga-arkivet
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
