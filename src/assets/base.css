@@ -89,3 +89,15 @@ body {
 .v-application__wrap {
   min-width: 100vw !important;
 }
+
+@media (min-width: 1280px) {
+  .v-container {
+      min-width: 100vw; 
+  }
+}
+
+@media (min-width: 960px) {
+  .v-container {
+    min-width: 100vw;
+  }
+}
