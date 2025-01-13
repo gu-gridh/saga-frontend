@@ -78,6 +78,7 @@ const getColor = () => {
 display: flex;
   position: relative;
   align-items: center;
+    justify-content: center;
 }
 
 .time {
