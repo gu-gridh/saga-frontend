@@ -100,6 +100,10 @@ display: flex;
     animation: cardStand linear 0.5s;
 }
 
+.timeline-item {
+  cursor: pointer;
+} 
+
 .line-connector {
   position: absolute;
   top: 20px; /* Adjust to align with the timeline dot */

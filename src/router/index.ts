@@ -9,6 +9,11 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
     },
+    {
+      path: '/tidslinje',
+      name: 'timeline',
+      component: () => import('../components/Timeline.vue'),
+    }
   ],
 })
 
