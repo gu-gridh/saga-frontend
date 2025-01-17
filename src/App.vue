@@ -1,9 +1,12 @@
 <template>
   <v-app :theme="theme">
-    <v-app-bar color="blue-grey lighten-2">
-      <v-toolbar-title>SagaArkivet</v-toolbar-title>
+    <v-app-bar class="main-nav">
+      <v-toolbar-title>SagaArkivet</v-toolbar-title>     
+      <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
+      <v-btn>Förlagsarbetet</v-btn>
+      <v-btn>Produktionerna</v-btn>
+      <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
-      <v-btn>Tidslinje</v-btn>
       <v-btn
           :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
           slim
@@ -37,6 +40,17 @@ const onClick = () => {
 .main {
   padding-top: 50px;
   max-width: 100vw;
+}
 
+.main-nav {
+  color: #E77F11 !important;
+  font-family: "Barlow Condensed", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.main-nav .v-btn {
+  font-size: 16px !important;
+  color: #E77F11 !important;
 }
 </style>

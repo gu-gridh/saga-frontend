@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <v-timeline start="1890" end="1912" direction="horizontal">
+        <v-timeline start="1890" end="1912" direction="horizontal" side="end" class="time">
             <v-timeline-item
                 v-for="(entry, index) in timelineData"
                 :key="index"
@@ -40,7 +40,7 @@
 
                     <!-- FBF Events -->
                     <div v-if="entry.events.FBF.length" class="mt-4">
-                        <h3 class="headline font-weight-light mb-2 text-secondary">Folkskolans barntidining förlag</h3>
+                        <h3 class="headline font-weight-light mb-2 text-secondary">Folkskolans barntidning förlag</h3>
                         <p v-for="(event, idx) in entry.events.FBF" :key="`fbf-${idx}`">
                             {{ event }}
                         </p>
@@ -75,7 +75,15 @@ const getColor = () => {
 
 <style scoped>
 .container {
+display: flex;
   position: relative;
+  align-items: center;
+    justify-content: center;
+}
+
+.time {
+  position: relative;
+  max-width: 90%;
 }
 
 .expandable-content {
@@ -89,17 +97,30 @@ const getColor = () => {
   transform: translateX(-50%); /* Center the card horizontally */
   width: 300px; /* Adjust as needed */
   z-index: 1; /* Ensure the card is above the line connector */
-    
+    animation: cardStand linear 0.5s;
 }
+
+.timeline-item {
+  cursor: pointer;
+} 
 
 .line-connector {
   position: absolute;
   top: 20px; /* Adjust to align with the timeline dot */
   left: 50%;
-  height: 200px; /* Ensure it connects to the card */
+  height: 130px; /* Ensure it connects to the card */
   width: 3px;
   background-color: grey; /* Customize the line color */
   transform: translateX(-50%);
-  
+  animation: stand linear 0.5s;
+}
+@keyframes stand {
+  0% {height: 0;}
+  100% {height: 130px;}
+}
+
+@keyframes cardStand {
+  0% {top: 0;}
+  100% {top: 150px;}
 }
 </style>
