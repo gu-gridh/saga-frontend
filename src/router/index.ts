@@ -13,7 +13,12 @@ const router = createRouter({
       path: '/tidslinje',
       name: 'timeline',
       component: () => import('../components/Timeline.vue'),
-    }
+    },
+    {
+      path: '/produktioner',
+      name: 'productions',
+      component: () => import('../views/ProductionsView.vue'),
+    },
   ],
 })
 
