@@ -1,10 +1,10 @@
 <template>
   <v-app :theme="theme">
     <v-app-bar class="main-nav">
-      <v-toolbar-title>SagaArkivet</v-toolbar-title>     
+      <v-toolbar-title><router-link to="/"><v-btn icon="mdi-home"></v-btn></router-link> SagaArkivet</v-toolbar-title>     
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
-      <v-btn>Produktionerna</v-btn>
+      <router-link to="/produktioner"><v-btn>Produktionerna</v-btn></router-link>
       <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
       <v-btn
@@ -13,17 +13,19 @@
           @click="onClick"
         ></v-btn>
     </v-app-bar>
-    <v-main>
+    <v-main class="">
       <div class="main">
         <RouterView />
       </div>
     </v-main>
+    <Footer/>
   </v-app>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import {RouterView } from 'vue-router'
+import Footer from './components/Footer.vue'
 
 const theme = ref('light')  
 
@@ -39,7 +41,6 @@ const onClick = () => {
 <style scoped>
 .main {
   padding-top: 50px;
-  max-width: 100vw;
 }
 
 .main-nav {
