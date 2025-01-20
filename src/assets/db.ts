@@ -2,7 +2,7 @@ const apiUrl = 'https://saga.dh.gu.se/api/'
 
 const headers = {
     'Content-Type': 'application/json',
-    'Authorization': 'username: ' + import.meta.env.VITE_API_USERNAME + ' password: ' + import.meta.env.VITE_API_PASSWORD,
+    'Authorization': 'Basic ' + btoa(import.meta.env.VITE_API_USERNAME + ':' + import.meta.env.VITE_API_PASSWORD),
     'Access-Control-Allow-Origin': '*',
 }
 
