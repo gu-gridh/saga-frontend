@@ -93,6 +93,28 @@ body {
   min-width: 100vw !important;
 }
 
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #E77F11;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #E77F11;
+}
+
+.content {
+  margin-left: 50px;
+  margin-right: 70px;
+}
+
+.v-card-title {
+  color: #A30015;
+}
+
 @media (min-width: 1280px) {
   .v-container {
       min-width: 100vw; 
