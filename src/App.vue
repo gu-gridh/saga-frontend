@@ -17,7 +17,7 @@
       <v-toolbar-title><router-link to="/"><v-btn icon="mdi-home"></v-btn></router-link> SagaArkivet</v-toolbar-title>     
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
-      <router-link to="/produktioner"><v-btn>Produktionerna</v-btn></router-link>
+      <router-link to="/produktioner"><v-btn>Publikationer</v-btn></router-link>
       <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
       <v-btn
