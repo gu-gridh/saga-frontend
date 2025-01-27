@@ -96,14 +96,14 @@ body {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: #E77F11;
+  color: #7F97DC;
 }
 
 h2 {
   font-size: 1.5rem;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  color: #E77F11;
+  color: #7F97DC;
 }
 
 .content {
@@ -112,7 +112,7 @@ h2 {
 }
 
 .v-card-title {
-  color: #A30015;
+  color: #E77F11;
 }
 
 @media (min-width: 1280px) {

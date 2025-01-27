@@ -80,6 +80,7 @@ onMounted(() => {
 <style scoped>
 .main {
   padding-top: 50px;
+  padding-bottom: 90px;
 }
 
 .main-nav {
