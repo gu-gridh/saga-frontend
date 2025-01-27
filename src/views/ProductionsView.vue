@@ -6,28 +6,10 @@
             <p><em v-for="label in item.altLabels">{{ label }}, </em></p>
             <h2>Sökingångar</h2>
             <v-row>
-                <v-col>
+                <v-col v-for="item in mockData" :key="item.title">
                     <v-card>
-                        <v-card-title>Barnbiblioteket Saga</v-card-title>
-                        <v-card-text>
-                            <p>Titel</p>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col>
-                    <v-card>
-                        <v-card-title>Barnteatern</v-card-title>
-                        <v-card-text>
-                            <p>Titel</p>
-                        </v-card-text>
-                    </v-card>
-                </v-col>
-                <v-col>
-                    <v-card>
-                        <v-card-title>Fågel Blå</v-card-title>
-                        <v-card-text>
-                            <p>Titel</p>
-                        </v-card-text>
+                        <img :src="getImageUrl(item.image)" :alt="item.title">
+                        <v-card-title>{{item.title}}</v-card-title>
                     </v-card>
                 </v-col>
             </v-row>
@@ -64,6 +46,29 @@ const item = ref<Item>({
     contributors: [],
     altLabels: [],
 });
+
+function getImageUrl(imageName: string): string {
+    return new URL(`../images/${imageName}`, import.meta.url).href;
+}
+
+const mockData = [
+    {
+        title: 'Barnbiblioteket Saga',
+        image: 'saga.jpg',
+    },
+    {
+        title: 'Barnteatern',
+        image: 'barnteatern.jpg',
+    },
+    {
+        title: 'Fågel Blå',
+        image: 'fagelbla.jpg',
+    },
+    {
+        title: 'Jultomten',
+        image: 'jultomten.jpg',
+    },
+]
 
 onMounted( async() => {
     const response = await fetchItems('items/203'); //fetches the item with id 203 which is svensk läraretidnings förlag
@@ -106,6 +111,15 @@ function transformApiResponse(apiResponse: any): any {
     width: 90%;
 }
 
+.v-card {
+    text-align: center;
+    width: 320px;
+    cursor: pointer;
+}
 
+.v-card img {
+    width: 300px;
+    height: auto;
+}
 
 </style>

@@ -61,13 +61,13 @@
   
   <style scoped>
   #footer {
+    position:fixed;
     background-color: #222;
     color: white;
     line-height: 1;
     height: 82px;
     width: calc(100% + 2px);
     font-size: 12px;
-    position: absolute;
     z-index: 3000;
     bottom: -2px;;
     font-family: "Barlow Condensed", sans-serif;
