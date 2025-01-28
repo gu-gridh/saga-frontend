@@ -91,7 +91,7 @@ onMounted(() => {
 }
 
 .main-nav .v-btn {
-  font-size: 16px !important;
+  font-size: 18px !important;
   color: #E77F11 !important;
 }
 </style>

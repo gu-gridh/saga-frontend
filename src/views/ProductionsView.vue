@@ -5,21 +5,24 @@
             <p>Grundat {{ item.dateOfEstablishment }}</p>
             <p><em v-for="label in item.altLabels">{{ label }}, </em></p>
             <h2>Sökingångar</h2>
-            <v-row>
-                <v-col v-for="item in mockData" :key="item.title">
-                    <v-card>
-                        <img :src="getImageUrl(item.image)" :alt="item.title">
+            <masonry-wall :items="mockData" :gap="20" :ssr-columns="1" :column-width="320">
+                <template #default="{ item }">
+                    <v-hover 
+                        v-slot="{ isHovering, props }"
+                        open-delay="50"
+                    >
+
+                    <v-card 
+                        :elevation="isHovering ? 10 : 2"
+                         v-bind="props"
+                    >
+                        <img :src="getImageUrl(item.image)" :alt="item.title" class="smallImg">
                         <v-card-title>{{item.title}}</v-card-title>
                     </v-card>
-                </v-col>
-            </v-row>
+                </v-hover>
+                </template>
+            </masonry-wall>
 
-<!--             <h3>Medverkade i utgivningen av:</h3>
-            <v-row>
-                <v-col v-for="contributor in item.contributors" :key="contributor.id">
-                    {{contributor.title}}
-                </v-col>
-            </v-row>  -->
         </div>
     </v-container>
 </template>
@@ -55,19 +58,48 @@ const mockData = [
     {
         title: 'Barnbiblioteket Saga',
         image: 'saga.jpg',
+        id: 1,
     },
     {
         title: 'Barnteatern',
         image: 'barnteatern.jpg',
+        id: 2,
     },
     {
         title: 'Fågel Blå',
         image: 'fagelbla.jpg',
+        id: 3,
     },
     {
         title: 'Jultomten',
         image: 'jultomten.jpg',
+        id: 4,
     },
+    {
+        title: 'Saga B',
+        image: 'sagaB.jpg',
+        id: 5,
+    },
+    {
+        title: 'Sagas Julbok',
+        image: 'sagasjulbok.jpg',
+        id: 6,
+    },
+    {
+        title: 'Silvervit',
+        image: 'silvervit.jpg',
+        id: 7,
+    },
+    {
+        title: 'Stjärnböckerna',
+        image: 'stjarnbockerna.jpg',
+        id: 8,
+    },
+    {
+        title: 'Titteli-Ture',
+        image: 'titteliture.jpg',
+        id: 9,
+    }
 ]
 
 onMounted( async() => {
@@ -113,13 +145,22 @@ function transformApiResponse(apiResponse: any): any {
 
 .v-card {
     text-align: center;
-    width: 320px;
     cursor: pointer;
+    padding-top: 5px;
+    max-width: 320px;
 }
 
 .v-card img {
     width: 300px;
     height: auto;
+}
+
+.smallImg {
+    border-radius: 5px;
+}
+
+.masonry-column {
+    flex-basis: 0px !important;
 }
 
 </style>
