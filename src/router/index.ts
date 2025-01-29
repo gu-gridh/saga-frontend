@@ -15,9 +15,14 @@ const router = createRouter({
       component: () => import('../components/Timeline.vue'),
     },
     {
-      path: '/produktioner',
-      name: 'productions',
+      path: '/publikationer',
+      name: 'publications',
       component: () => import('../views/ProductionsView.vue'),
+    },
+    {
+      path: '/publikation/:id',
+      name: 'publikation', 
+      component: () => import('../components/Publication.vue'),
     },
   ],
 })

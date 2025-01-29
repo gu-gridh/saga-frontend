@@ -12,6 +12,8 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+import MasonryWall from '@yeger/vue-masonry-wall'
+
 const app = createApp(App)
 
 const vuetify = createVuetify({
@@ -23,5 +25,6 @@ const vuetify = createVuetify({
 app.use(createPinia())
 app.use(router)
 app.use(vuetify)
+app.use(MasonryWall)
 
 app.mount('#app')

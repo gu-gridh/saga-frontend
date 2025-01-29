@@ -83,7 +83,7 @@ display: flex;
 
 .time {
   position: relative;
-  max-width: 90%;
+  max-width: 80%;
 }
 
 .expandable-content {
