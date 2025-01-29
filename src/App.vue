@@ -3,7 +3,7 @@
     <!--if mobile. use navigation drawer-->
     <v-app-bar v-if="width < 1000">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title><router-link to="/"><v-btn icon="mdi-home"></v-btn></router-link> SagaArkivet</v-toolbar-title>
+      <v-toolbar-title><router-link to="/"></router-link> SagaArkivet</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn
           :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
@@ -14,10 +14,10 @@
     </v-app-bar>
     <!--if desktop, use regular app bar-->
     <v-app-bar app class="main-nav" v-else>
-      <v-toolbar-title><router-link to="/"><v-btn icon="mdi-home"></v-btn></router-link> SagaArkivet</v-toolbar-title>     
+      <v-toolbar-title><router-link to="/"><img src="https://saga.dh.gu.se/files/asset/622a1fdd562c8a7358d57204ec5220a73b29a7e4.png" class="icon"/></router-link></v-toolbar-title>     
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
-      <router-link to="/produktioner"><v-btn>Publikationer</v-btn></router-link>
+      <router-link to="/publikationer"><v-btn>Publikationer</v-btn></router-link>
       <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
       <v-btn
@@ -65,6 +65,8 @@ const onClick = () => {
 
 const { mobile, width } = useDisplay()
 
+
+
 onMounted(() => {
   console.log(width.value)
   if (mobile.value) {
@@ -84,7 +86,7 @@ onMounted(() => {
 }
 
 .main-nav {
-  color: #E77F11 !important;
+  color: #93272C !important;
   font-family: "Barlow Condensed", serif;
   font-weight: 500;
   font-style: normal;
@@ -92,6 +94,17 @@ onMounted(() => {
 
 .main-nav .v-btn {
   font-size: 18px !important;
-  color: #E77F11 !important;
+  color: #93272C !important;
+  font-style: 700 !important;
+}
+
+.router-link-active  {
+  border-bottom: 2px solid #93272C;
+  color: #93272C !important; /* Optional: Different color for active link */
+}
+
+.icon {
+  width: 35px;
+  height: auto;
 }
 </style>

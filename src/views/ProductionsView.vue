@@ -15,6 +15,7 @@
                     <v-card 
                         :elevation="isHovering ? 10 : 2"
                          v-bind="props"
+                         @click="() => $router.push(`/publikation/${item.id}`)"
                     >
                         <img :src="getImageUrl(item.image)" :alt="item.title" class="smallImg">
                         <v-card-title>{{item.title}}</v-card-title>
@@ -58,52 +59,52 @@ const mockData = [
     {
         title: 'Barnbiblioteket Saga',
         image: 'saga.jpg',
-        id: 1,
+        id: 5989,
     },
     {
         title: 'Barnteatern',
         image: 'barnteatern.jpg',
-        id: 2,
+        id: 6000,
     },
     {
         title: 'Fågel Blå',
         image: 'fagelbla.jpg',
-        id: 3,
+        id: 6015,
     },
     {
         title: 'Jultomten',
         image: 'jultomten.jpg',
-        id: 4,
+        id: 6013,
     },
     {
         title: 'Saga B',
         image: 'sagaB.jpg',
-        id: 5,
+        id: 19075,
     },
     {
         title: 'Sagas Julbok',
         image: 'sagasjulbok.jpg',
-        id: 6,
+        id: 19074,
     },
     {
         title: 'Silvervit',
         image: 'silvervit.jpg',
-        id: 7,
+        id: 6016,
     },
     {
         title: 'Stjärnböckerna',
         image: 'stjarnbockerna.jpg',
-        id: 8,
+        id: 5990,
     },
     {
         title: 'Titteli-Ture',
         image: 'titteliture.jpg',
-        id: 9,
+        id: 6014,
     }
 ]
 
 onMounted( async() => {
-    const response = await fetchItems('items/203'); //fetches the item with id 203 which is svensk läraretidnings förlag
+    const response = await fetchItems('items', '203'); //fetches the item with id 203 which is svensk läraretidnings förlag
     item.value = await transformApiResponse(response);
 });
 
