@@ -1,6 +1,12 @@
 <template>
     <v-container>
-
+        <div class="content">
+            <h1>{{ item.title }}</h1>
+            <p><b>Utgivare:</b></p>
+            <p v-for="pub in item.publisher">{{ pub.display_title }}</p>
+            <p><b>Alternativa titlar:</b></p>
+            <p v-for="title in item.altTitles">{{ title['@value']['@value'] }}</p>
+        </div>
     </v-container>
 </template>
 
@@ -8,8 +14,17 @@
 import { fetchItems } from '@/assets/db';
 import { watch, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import type { Item, Publisher } from '@/types'
 
-const item = ref({})
+
+
+const item = ref<Item>({
+  title: '',
+  altTitles: [],
+  publisher: [{} as Publisher],
+  children: null,
+
+})
 const id = ref('')
 
 const route = useRoute()
@@ -36,11 +51,9 @@ onMounted(() => {
 const transformApiResponse = (response: any) => {
   return {
     children: response["@context"],
-    altTitle: response["dcterms:alternative"],
+    altTitles: response["dcterms:alternative"].map((alt: any) => ({ '@value': alt })),
     publisher: response["dcterms:publisher"],
     title: response["o:title"],  
-    itemSet: response["o:item_set"],
-
   }
 }   
 </script>

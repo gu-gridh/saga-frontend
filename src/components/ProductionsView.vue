@@ -3,7 +3,7 @@
         <div class="content">
             <h1>{{item.title}}</h1>
             <p>Grundat {{ item.dateOfEstablishment }}</p>
-            <p><em v-for="label in item.altLabels">{{ label }}, </em></p>
+            <p><b>Alternativa titlar:</b></p><p v-for="label in item.altLabels">{{ label }}</p>
             <h2>Sökingångar</h2>
             <masonry-wall :items="mockData" :gap="20" :ssr-columns="1" :column-width="320">
                 <template #default="{ item }">
@@ -31,20 +31,10 @@
 <script setup lang="ts">
 import { fetchItems } from '@/assets/db';
 import { ref, onMounted } from 'vue';
+import type { Organisation } from '@/types';
 
-interface Contributor {
-    id: string;
-    title: string;
-}
 
-interface Item {
-    title: string;
-    dateOfEstablishment: string;
-    contributors: Contributor[];
-    altLabels: string[];
-}
-
-const item = ref<Item>({
+const item = ref<Organisation>({
     title: '',
     dateOfEstablishment: '',
     contributors: [],
@@ -61,46 +51,46 @@ const mockData = [
         image: 'saga.jpg',
         id: 5989,
     },
-    {
-        title: 'Barnteatern',
-        image: 'barnteatern.jpg',
-        id: 6000,
-    },
-    {
-        title: 'Fågel Blå',
-        image: 'fagelbla.jpg',
-        id: 6015,
-    },
-    {
-        title: 'Jultomten',
-        image: 'jultomten.jpg',
-        id: 6013,
-    },
-    {
-        title: 'Saga B',
-        image: 'sagaB.jpg',
-        id: 19075,
-    },
-    {
-        title: 'Sagas Julbok',
-        image: 'sagasjulbok.jpg',
-        id: 19074,
-    },
-    {
-        title: 'Silvervit',
-        image: 'silvervit.jpg',
-        id: 6016,
-    },
-    {
-        title: 'Stjärnböckerna',
-        image: 'stjarnbockerna.jpg',
-        id: 5990,
-    },
-    {
-        title: 'Titteli-Ture',
-        image: 'titteliture.jpg',
-        id: 6014,
-    }
+    // {
+    //     title: 'Barnteatern',
+    //     image: 'barnteatern.jpg',
+    //     id: 6000,
+    // },
+    // {
+    //     title: 'Fågel Blå',
+    //     image: 'fagelbla.jpg',
+    //     id: 6015,
+    // },
+    // {
+    //     title: 'Jultomten',
+    //     image: 'jultomten.jpg',
+    //     id: 6013,
+    // },
+    // {
+    //     title: 'Saga B',
+    //     image: 'sagaB.jpg',
+    //     id: 19075,
+    // },
+    // {
+    //     title: 'Sagas Julbok',
+    //     image: 'sagasjulbok.jpg',
+    //     id: 19074,
+    // },
+    // {
+    //     title: 'Silvervit',
+    //     image: 'silvervit.jpg',
+    //     id: 6016,
+    // },
+    // {
+    //     title: 'Stjärnböckerna',
+    //     image: 'stjarnbockerna.jpg',
+    //     id: 5990,
+    // },
+    // {
+    //     title: 'Titteli-Ture',
+    //     image: 'titteliture.jpg',
+    //     id: 6014,
+    // }
 ]
 
 onMounted( async() => {
@@ -149,11 +139,16 @@ function transformApiResponse(apiResponse: any): any {
     cursor: pointer;
     padding-top: 5px;
     max-width: 320px;
+    
 }
 
 .v-card img {
     width: 300px;
     height: auto;
+}
+
+.v-card-title {
+  color: #93272C !important;
 }
 
 .smallImg {

@@ -17,7 +17,7 @@ const router = createRouter({
     {
       path: '/publikationer',
       name: 'publications',
-      component: () => import('../views/ProductionsView.vue'),
+      component: () => import('../components/ProductionsView.vue'),
     },
     {
       path: '/publikation/:id',
