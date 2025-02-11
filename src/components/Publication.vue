@@ -6,6 +6,8 @@
             <p v-for="pub in item.publisher">{{ pub.display_title }}</p>
             <p><b>Alternativa titlar:</b></p>
             <p v-for="title in item.altTitles">{{ title['@value']['@value'] }}</p>
+            <h2>Serier</h2>
+            <p v-for="child in item.children">{{ child['o:title'] }}</p>
         </div>
     </v-container>
 </template>
@@ -50,10 +52,11 @@ onMounted(() => {
 
 const transformApiResponse = (response: any) => {
   return {
-    children: response["@context"],
+    children: response["@reverse"]["bf:seriesStatement"],
     altTitles: response["dcterms:alternative"].map((alt: any) => ({ '@value': alt })),
     publisher: response["dcterms:publisher"],
     title: response["o:title"],  
+
   }
 }   
 </script>
