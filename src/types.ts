@@ -2,7 +2,12 @@ export type Item = {
     title: string;
     altTitles: AltTitle[];
     publisher: [Publisher];
-    children: any;
+    children: [
+        {
+            'o:title': string;
+            'o:id': string;
+        }
+    ];
 }
 
 interface AltTitle {
@@ -28,3 +33,19 @@ export type Organisation = {
     contributors: Contributor[];
     altLabels: string[];
 }
+
+export type ReverseItem = {
+    'o:id': number;
+    'o:title': string;
+  }
+  
+export type SagaVerk = {
+    'o:id': number;
+    'o:title': string;
+    'thumbnail_display_urls': {
+      'large': string;
+    };
+    '@reverse': {
+      'dcterms:isPartOf': ReverseItem[];
+    };
+  }

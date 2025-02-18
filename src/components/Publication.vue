@@ -1,66 +1,105 @@
 <template>
     <v-container>
         <div class="content">
-            <h1>{{ item.title }}</h1>
-            <p><b>Utgivare:</b></p>
-            <p v-for="pub in item.publisher">{{ pub.display_title }}</p>
-            <p><b>Alternativa titlar:</b></p>
-            <p v-for="title in item.altTitles">{{ title['@value']['@value'] }}</p>
+            <h1>Barnbiblioteket Saga</h1>
             <h2>Serier</h2>
-            <p v-for="child in item.children">{{ child['o:title'] }}</p>
+            <v-infinite-scroll :items="items" :onLoad="loadMore" :height="1000" :offset="600" class="scroller">
+                <v-row>
+                    <v-col v-for="child in items" :key="child['o:id']" cols="3">
+                        <v-card>
+                            <v-card-text class="card-text">
+                              <v-img :src="child['thumbnail_display_urls']['large']" height="350px"></v-img>
+
+                                  {{ child['o:title'] }}
+                                  <v-icon color="#93272C" class="align-end" @click="expand(child['o:id'])">mdi-chevron-down</v-icon>
+
+                                <!--expendable content-->
+                                <!-- <div class="expand">
+                                  <p v-for="vers in child['@reverse']['dcterms:isPartOf']" :key="vers['o:id']">fetch data with id</p>
+                                </div> -->
+                                
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-infinite-scroll>
         </div>
     </v-container>
 </template>
 
 <script setup lang="ts">
-import { fetchItems } from '@/assets/db';
-import { watch, ref, onMounted } from 'vue'
+
+import {  ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { Item, Publisher } from '@/types'
+import type { SagaVerk } from '@/types'
 
+const num = ref(20) //used for pagination
+const page = ref(1)
+const isLoading = ref(false) // Track if data is being fetched
+const hasMoreData = ref(true) // Track if more data is available
 
+const items = ref<SagaVerk[]>([])
 
-const item = ref<Item>({
-  title: '',
-  altTitles: [],
-  publisher: [{} as Publisher],
-  children: null,
+const api = computed (() => `https://saga.dh.gu.se/api/items?pretty_print=1&amp;resource_template_id=11&per_page=${num.value}&page=${page.value}&amp;property[0][property]=dcterms:isPartOf&property[0][text]=5989&property[0][type]=eq`)
 
-})
-const id = ref('')
+const getItem = async () => {
+  if (isLoading.value || !hasMoreData.value) return // Prevent multiple calls
+  isLoading.value = true
 
-const route = useRoute()
+  try {
+    const response = await fetch(api.value, {
+      method: 'GET',
+      credentials: "include"
+    })
+    const data = await response.json()
 
-const getItem = async (id: string) => {
-    const response = await fetchItems('items', id)
-    console.log(response)
-    item.value = transformApiResponse(response)
+    if (data.length === 0) {
+      hasMoreData.value = false // Stop loading when no more data
+    } else {
+      data.forEach((item: SagaVerk) => {
+        items.value.push(item)
+      })
+      page.value++ // Increment page only if there is more data
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error)
+  } finally {
+    isLoading.value = false
+  }
 }
 
-watch(
-  () => route.params.id,
-  (newId, oldId) => {
-    id.value = Array.isArray(newId) ? newId[0] : newId
-    getItem(id.value)
-  }
-)
+const loadMore = async ({ done }: { done: () => void }) => {
+  console.log('Load more triggered')
+  await getItem()
+  done() // Tell v-infinite-scroll that loading is complete
+}
 
 onMounted(() => {
-  id.value = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
-  getItem(id.value)
+  getItem()
 })
 
-const transformApiResponse = (response: any) => {
-  return {
-    children: response["@reverse"]["bf:seriesStatement"],
-    altTitles: response["dcterms:alternative"].map((alt: any) => ({ '@value': alt })),
-    publisher: response["dcterms:publisher"],
-    title: response["o:title"],  
-
-  }
-}   
+const expand = (id: number) => {
+  console.log('expand', id)
+}
+ 
 </script>
 
 <style scoped>
+
+.card-text {
+    text-align: center;
+    font-size: 18px;
+}
+
+.expand {
+    display: flex;
+    justify-content: right;
+    cursor: pointer;
+}
+
+.scroller {
+    overflow-x: hidden;
+    overflow-y: none;
+}
 
 </style>
