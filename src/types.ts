@@ -44,6 +44,7 @@ export type SagaVerk = {
     'o:title': string;
     'thumbnail_display_urls': {
       'large': string;
+      'medium': string;
     };
     '@reverse': {
       'dcterms:isPartOf': ReverseItem[];

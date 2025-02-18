@@ -5,11 +5,14 @@
             <h2>Serier</h2>
             <v-infinite-scroll :items="items" :onLoad="loadMore" :height="1000" :offset="600" class="scroller">
                 <v-row>
-                    <v-col v-for="child in items" :key="child['o:id']" cols="3">
+                    <v-col v-for="child in items" :key="child['o:id']" cols="3" v-memo="[child['o:id']]">
                         <v-card>
                             <v-card-text class="card-text">
-                              <v-img :src="child['thumbnail_display_urls']['large']" height="350px"></v-img>
-
+                              <v-img 
+                                :src="child['thumbnail_display_urls']['large']" height="350px"
+                                contain
+                                v-lazy>
+                              </v-img>
                                   {{ child['o:title'] }}
                                   <v-icon color="#93272C" class="align-end" @click="expand(child['o:id'])">mdi-chevron-down</v-icon>
 
@@ -29,21 +32,20 @@
 
 <script setup lang="ts">
 
-import {  ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import {  ref, onMounted, computed, shallowRef } from 'vue'
 import type { SagaVerk } from '@/types'
 
-const num = ref(20) //used for pagination
+const num = ref(30) //used for pagination
 const page = ref(1)
-const isLoading = ref(false) // Track if data is being fetched
-const hasMoreData = ref(true) // Track if more data is available
+const isLoading = ref(false) 
+const hasMoreData = ref(true) 
 
-const items = ref<SagaVerk[]>([])
+const items = shallowRef<SagaVerk[]>([]) // better performace than ref for this amount of data
 
 const api = computed (() => `https://saga.dh.gu.se/api/items?pretty_print=1&amp;resource_template_id=11&per_page=${num.value}&page=${page.value}&amp;property[0][property]=dcterms:isPartOf&property[0][text]=5989&property[0][type]=eq`)
 
 const getItem = async () => {
-  if (isLoading.value || !hasMoreData.value) return // Prevent multiple calls
+  if (isLoading.value || !hasMoreData.value) return
   isLoading.value = true
 
   try {
@@ -54,12 +56,12 @@ const getItem = async () => {
     const data = await response.json()
 
     if (data.length === 0) {
-      hasMoreData.value = false // Stop loading when no more data
+      hasMoreData.value = false
     } else {
-      data.forEach((item: SagaVerk) => {
-        items.value.push(item)
+      requestIdleCallback(() => {
+        data.forEach(item => items.value.push(item))
       })
-      page.value++ // Increment page only if there is more data
+      page.value++
     }
   } catch (error) {
     console.error("Error fetching data:", error)
