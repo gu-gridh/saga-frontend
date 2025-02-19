@@ -49,4 +49,8 @@ export type SagaVerk = {
     '@reverse': {
       'dcterms:isPartOf': ReverseItem[];
     };
+    'dcterms:issued': {
+        '@value': string | number;
+    }
+    '@value': string;
   }
