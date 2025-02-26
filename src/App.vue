@@ -32,14 +32,14 @@
          <v-navigation-drawer v-model="drawer" app v-if="width < 1000">
           <v-list>
             <v-list-item>
-              <v-list-item-content>
+
                 <v-list-item-title>Tidslinje</v-list-item-title>
-              </v-list-item-content>
+
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>
+
                 <v-list-item-title>Produktioner</v-list-item-title>
-              </v-list-item-content>
+
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -68,9 +68,8 @@ const { mobile, width } = useDisplay()
 
 
 onMounted(() => {
-  console.log(width.value)
   if (mobile.value) {
-    drawer.value = true
+    drawer.value = false // Close drawer if mobile
     console.log('Mobile device detected')
   }
 })
