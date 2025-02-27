@@ -41,6 +41,9 @@ export type ReverseItem = {
   
 export type SagaVerk = {
     'o:id': number;
+    'bibo:number': Array<{
+        '@value': number;
+    }>
     'o:title': string;
     'thumbnail_display_urls': {
       'large': string;

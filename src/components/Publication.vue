@@ -3,14 +3,14 @@
       <div class="content">
           <h1>Barnbiblioteket Saga</h1>
           <h2>Serier</h2>
-          <!-- <v-infinite-scroll :items="items" :onLoad="loadMore"  :offset="600" class="scroller"> -->
               <v-row>
                   <v-col v-for="child in items" :key="child['o:id']" cols="12" xs="12" sm="6" md="3"  >
                     <router-link :to="{ name: 'serie', params: { id: child['o:id'] } }">
                       <v-card>
                           <v-card-text class="card-text">
+                          <span class="bookNr" v-if="child['bibo:number']?.[0]?.['@value']">Barnbiblioteket Saga: {{ child['bibo:number'][0]['@value'] }}</span>
                               <v-img 
-                                  :src="child['thumbnail_display_urls']['medium']" 
+                                  :src="child['thumbnail_display_urls']?.['medium'] || 'default-placeholder.jpg'" 
                                   height="200px"
                                   >
                               </v-img>
@@ -53,14 +53,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, shallowRef } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import type { SagaVerk } from '@/types'
 
 const num = ref(24) // Number of items per page
+const totNum = ref() // Total number of items
 const page = ref(1) //as number or string
 const totalpages = ref(100) //todo fetch from api
-const isLoading = ref(false) 
-const hasMoreData = ref(true) 
 
 const items = ref<SagaVerk[]>([]) 
 
@@ -75,30 +74,33 @@ try {
     method: 'GET',
     credentials: "include"
   })
-  const data = await response.json()
-
-  if (data.length === 0) {
-    hasMoreData.value = false
-  } else {
-    requestIdleCallback(() => {
-      data.forEach((item: SagaVerk) => items.value.push(item))
-    })
-    page.value++
-  }
+  items.value = await response.json()
+  console.log(items.value)
+  
 } catch (error) {
   console.error("Error fetching data:", error)
-} finally {
-  isLoading.value = false
-}
+} 
 }
 
-const loadMore = async ({ done }: { done: () => void }) => {
-await getItem()
+//watch for page change
+watch(page, async () => {
+  await getItem()
+})
 
-}
-
-onMounted(() => {
-getItem()
+onMounted(async () => {
+  getItem()
+  //get total items
+  await fetch('https://saga.dh.gu.se/api/infos/items?resource_template_id=11&property[0][property]=%22dcterms:isPartOf%22&property[0][text]=5989&property[0][type]=%22eq%22&sort_by=bibo:number&sort_order=asc', {
+    method: 'GET',
+    credentials: "include"
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+    totNum.value = data.total
+    totalpages.value = Math.ceil(totNum.value / num.value)
+    console.log(totalpages.value)
+  })
 })
 
 
@@ -150,5 +152,10 @@ a:visited {
 .pageSelect {
   margin-top: 10px;
 
+}
+
+.bookNr {
+  font-size: 14px;
+  color: #93272C;
 }
 </style>
