@@ -57,3 +57,12 @@ export type SagaVerk = {
     }
     '@value': string;
   }
+
+export type SagaSerie = {
+    id: number;
+    title: string;
+    isPartOf: {
+        id: string;
+        'o:title': string;
+    }[];
+};
