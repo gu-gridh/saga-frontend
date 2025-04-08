@@ -17,12 +17,22 @@ const router = createRouter({
     {
       path: '/publikationer',
       name: 'publications',
-      component: () => import('../views/ProductionsView.vue'),
+      component: () => import('../components/ProductionsView.vue'),
     },
     {
       path: '/publikation/:id',
       name: 'publikation', 
       component: () => import('../components/Publication.vue'),
+    },
+    {
+      path: '/serie/:id',
+      name: 'serie',
+      component: () => import('../views/SerieView.vue'),
+    },
+    {
+      path: '/case',
+      name: 'case',
+      component: () => import('../views/CaseView.vue'),
     },
   ],
 })

@@ -18,6 +18,7 @@
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
       <router-link to="/publikationer"><v-btn>Publikationer</v-btn></router-link>
+      <router-link to="/case"><v-btn>Tematiska fördjupningar</v-btn></router-link>
       <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
       <v-btn
@@ -32,14 +33,14 @@
          <v-navigation-drawer v-model="drawer" app v-if="width < 1000">
           <v-list>
             <v-list-item>
-              <v-list-item-content>
+
                 <v-list-item-title>Tidslinje</v-list-item-title>
-              </v-list-item-content>
+
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>
+
                 <v-list-item-title>Produktioner</v-list-item-title>
-              </v-list-item-content>
+
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -68,9 +69,8 @@ const { mobile, width } = useDisplay()
 
 
 onMounted(() => {
-  console.log(width.value)
   if (mobile.value) {
-    drawer.value = true
+    drawer.value = false // Close drawer if mobile
     console.log('Mobile device detected')
   }
 })
