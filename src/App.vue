@@ -18,6 +18,7 @@
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
       <router-link to="/publikationer"><v-btn>Publikationer</v-btn></router-link>
+      <router-link to="/case"><v-btn>Tematiska fördjupningar</v-btn></router-link>
       <v-btn>Arkivförteckningarna</v-btn>
       <v-spacer></v-spacer>
       <v-btn
