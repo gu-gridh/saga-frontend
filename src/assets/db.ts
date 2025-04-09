@@ -21,8 +21,8 @@ export const fetchResource = async (id: string) => {
 }
 
 // fetch case components from omeka
-export const fetchCaseSite  = async () => {
-  const response = await fetch(apiUrl + 'site_pages', header
+export const fetchCaseSite  = async (id: number) => {
+  const response = await fetch(apiUrl + 'site_pages/' + id, header
     
   )
       return await response.json()

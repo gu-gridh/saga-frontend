@@ -15,6 +15,7 @@
     <!--if desktop, use regular app bar-->
     <v-app-bar app class="main-nav" v-else>
       <v-toolbar-title><router-link to="/"><img src="https://saga.dh.gu.se/files/asset/622a1fdd562c8a7358d57204ec5220a73b29a7e4.png" class="icon"/></router-link></v-toolbar-title>     
+      <router-link to="/brev"><v-btn>Brev</v-btn></router-link>
       <router-link to="/tidslinje"><v-btn>Tidslinje</v-btn></router-link>
       <v-btn>Förlagsarbetet</v-btn>
       <router-link to="/publikationer"><v-btn>Publikationer</v-btn></router-link>

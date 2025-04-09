@@ -34,6 +34,11 @@ const router = createRouter({
       name: 'case',
       component: () => import('../views/CaseView.vue'),
     },
+    {
+      path: '/brev',
+      name: 'brev',
+      component: () => import('../views/LettersView.vue'),
+    }
   ],
 })
 
